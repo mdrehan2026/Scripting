@@ -10,6 +10,9 @@ List=$(ls)
 echo "$List"
 user=$(whoami)
 echo "username is $user"
-#type3
+#type3 Background Execution (&)
+whoami > name
+echo " the background execution using & "
+cat name
 
 
