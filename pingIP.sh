@@ -2,6 +2,6 @@
 read -p "list the ip you want to ping:" IP
 echo "this is ip you have enter: $IP"
 #echo "here below is your output:"
-ping $IP
+ping -c 4 $IP
 #echo $PING
 
