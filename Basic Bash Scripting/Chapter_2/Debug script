@@ -1,0 +1,146 @@
+inside the script-type1
+#!/bin/bash -xv
+#!/bin/bash
+
+inside the script type-2
+# --- DEBUG START ---
+set -x  # Turn on trace (+ shows commands)
+# set -v # Turn on verbose (shows raw lines)
+# set -f # Turn off wildcards (*)
+# --- DEBUG END ---
+
+echo "Script logic here..."
+# Your commands...
+
+# --- DEBUG STOP ---
+set +x  # Turn off trace
+# set +v # Turn off verbose
+# set +f # Turn on wildcards
+
+at time of execution  Type-3 
+bash -xv ./test
+
+Even shorter (one-liners): Just wrap the specific part you are unsure about:
+set -x; <your_command_here>; set +x
+
+Or for the whole script (no comments needed): Change the first line only:
+#!/bin/bash -xv
+
+
+
+Example of set -v Below
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ set -v
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ./test.sh
+./test.sh
+this is testing script
+hi , md-rehan!
+
+I will list the user currently login in your shell:
+
+
+md-rehan
+
+I'm setting two variable now.
+this is a string: black
+and this is its number: 9
+
+I'm giving you back yoour prompt now.
+
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ set +v
+set +v
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ./test.sh
+this is testing script
+hi , md-rehan!
+
+I will list the user currently login in your shell:
+
+
+md-rehan
+
+I'm setting two variable now.
+this is a string: black
+and this is its number: 9
+
+I'm giving you back yoour prompt now.
+
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ 
+
+
+
+example of set -f below
+
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ls *
+ls *
+'Ollama + OpenCode  locally set up'   test.sh
+
+'Intozi wokr':
+'Noida 62 ATCC guide'  'Reverse ssh'  'travel expenses'  'Vappa techlogy clinet'
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ set -f 
+set -f 
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ touch *
+touch *
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ls *
+ls *
+'*'
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ rm *
+rm *
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ls *
+ls *
+ls: cannot access '*': No such file or directory
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ set +f 
+set +f 
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ls
+ls
+'Intozi wokr'  'Ollama + OpenCode  locally set up'   test.sh
+
+
+Example for set -v below
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ cat test.sh 
+#! /bin/bash
+clear
+echo "this is testing script"
+echo "hi , $USER!" 
+echo 
+
+ 
+echo "I will list the user currently login in your shell:"
+3 Debug start here
+set -x  # turn on debugging 
+echo 
+w | cut -d "" -f 1 - | grep -v USER | sort -u 
+set +x  # turn off debugging 
+ # debug end here
+echo 
+
+echo "I'm setting two variable now."
+COLOUR="black" # setting local varibale in string
+VALUE="9"      # setting local var in number
+echo "this is a string: $COLOUR"
+echo "and this is its number: $VALUE"
+echo 
+
+echo "I'm giving you back yoour prompt now."
+echo 
+
+md-rehan@mdrehan-HP-EliteBook-840-G8:~/Documents/work$ ./test.sh 
+
+this is testing script
+hi , md-rehan!
+
+I will list the user currently login in your shell:
+./test.sh: line 9: 3: command not found
++ echo
+
++ w
++ cut -d '' -f 1 -
++ grep -v USER
++ sort -u
+ 13:59:15 up  4:55,  1 user,  load average: 0.46, 0.33, 0.23
+md-rehan :1       :1               09:03   ?xdm?   1:04m  0.00s /usr/libexec/gdm-x-session --run-script env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --session=ubuntu
++ set +x
+
+I'm setting two variable now.
+this is a string: black
+and this is its number: 9
+
+I'm giving you back yoour prompt now.
