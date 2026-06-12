@@ -1,0 +1,78 @@
+This section explains how to view and change **Bash Options**.
+
+Bash options are like the "Settings menu" for your terminal. They are hidden toggles that change how Bash behaves—such as turning on strict error checking or preventing you from accidentally deleting your work.
+
+---
+
+## 1. How to View Your Current Settings
+
+To see a full list of your current settings and whether they are turned `on` or `off`, type:
+
+```bash
+set -o
+
+```
+
+This will print a list of behaviors. For example, you might see `history on` (meaning Bash remembers commands you type) or `xtrace off` (meaning code debugging is turned off).
+
+> **Note:** Many of these options have short nicknames. For example, `set -o xtrace` is the exact same thing as typing `set -x`.
+
+---
+
+## 2. How to Change Your Settings (The Confusing +/- Rule)
+
+You can turn these settings on or off at any time using the `set` command. However, Bash uses a slightly counter-intuitive rule for toggling them:
+
+* **Use a MINUS sign (`-`) to turn an option ON.**
+* **Use a PLUS sign (`+`) to turn an option OFF.**
+
+Think of `-` as *activating* a restriction and `+` as *removing* a restriction.
+
+---
+
+## 3. Three Useful Examples of Settings
+
+The text highlights three powerful options you can toggle to protect your files or debug your code:
+
+### A. Preventing Accidentally Overwriting Files (`noclobber`)
+
+Normally, if you use the `>` symbol, Bash will wipe out a file and overwrite it with new text. If you want to protect your files from being accidentally overwritten, turn on `noclobber`.
+
+```bash
+set -o noclobber   # Turns protection ON
+date > test.txt    # ❌ Error! Bash stops you from overwriting "test.txt"
+
+set +o noclobber   # Turns protection OFF
+date > test.txt    # ✅ Works normally, overwriting the file
+
+```
+
+### B. Catching Typos and Missing Variables (`nounset` / `-u`)
+
+By default, if you type a variable name that doesn't exist (like a typo), Bash just ignores it and leaves a blank space. Turning on `nounset` (or `-u`) forces Bash to treat empty or missing variables as a loud, script-stopping error.
+
+```bash
+set -u             # Turns strict variable checking ON
+echo $MY_TYPO      # ❌ Error! "bash: MY_TYPO: unbound variable"
+
+```
+
+*This is highly recommended for scripts because it instantly highlights typos in your variable names!*
+
+### C. Turning Off Wildcards (`noglob`)
+
+Normally, typing `*` tells Bash to look for files on your hard drive (File Name Expansion). If you want Bash to treat `*` as just a literal, regular star symbol, turn on `noglob`.
+
+```bash
+set -o noglob      # Turns off wildcard matching
+touch * # Creates a single file literally named "*" instead of matching all files
+
+```
+
+---
+
+## 4. Setting Options Safely
+
+You can turn these settings on temporarily inside a terminal window, or you can write them at the very top of a shell script (e.g., writing `set -e` or `set -u` right under `#!/bin/bash`) to ensure your script runs safely every time.
+
+Are you trying to make a script more secure, or are you trying to debug a script that keeps silently failing?
