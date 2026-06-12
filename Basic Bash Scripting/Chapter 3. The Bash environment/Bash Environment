@@ -232,3 +232,23 @@ source ~/.bashrc
 > 🛠️ **Debugging Tip:** If your terminal prompt looks weird and you don't know which file is causing it, add an `echo "Loading bashrc now!"` statement inside your files. When you open a terminal, you will see exactly which file is running and when!
 
 
+
+3.1.3. Changing shell configuration files
+
+1. Why Changes Don’t Happen Instantly
+When you open a terminal, it reads your .bashrc or .bash_profile once at startup. If you open that file, add a new shortcut (alias), and save it, nothing changes in your active terminal.
+
+To make your current terminal recognize the changes, you have two choices:
+
+Close and reopen your terminal window (or log out and log back in).
+
+"Source" the file to force the current terminal to reread it immediately.
+
+You source a file using the word source or a single dot (.):
+
+Bash
+# add alias in this file
+vim ~/.bashrc 
+source ~/.bashrc
+# This does the exact same thing:
+. ~/.bashrc
