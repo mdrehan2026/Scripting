@@ -22,7 +22,7 @@ By convention, variable names are usually written in **UPPERCASE**. Bash divides
 
 ---
 
-## 2. Rules for Creating Variables
+## 2.1 Rules for Creating Variables
 
 To create a variable, type its name, an equal sign (`=`), and the value.
 
@@ -46,6 +46,26 @@ echo $first_name   # The '$' tells Bash to read the variable. Outputs: Franky
 ```
 
 ---
+
+## 2.2 To remove a variable in Bash, you use the built-in unset command.
+
+Here is exactly how it works:
+
+Bash
+ 1. Create the variable
+MYVAR="Hello World"
+
+ 2. Check that it exists
+echo $MYVAR
+Outputs: Hello World
+
+#3. Remove the variable
+unset MYVAR
+
+4. Check again
+echo $MYVAR
+Outputs nothing (it's completely gone!)
+
 
 ## 3. Sharing Variables (Exporting)
 
