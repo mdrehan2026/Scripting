@@ -47,6 +47,17 @@ sed is a stream editor. A stream editor is used to perform basic text transforma
     
     Example: Print only the 2nd line of a file.
     `sed -n '2p' file.txt`
+    Another Quick Example: Printing a Range
+    You can also use this combo to print a specific section of a file, like lines 5 through 10:
+
+    ```Bash
+    sed -n '5,10p' file.txt
+
+    ```
+
+    sed treats multiple input files as one long stream. The following example prints the first line of the first file (one.txt) and the last line of the last file (three.txt). Use -s to reverse this behavior.
+
+    sed -n  '1p ; $p' one.txt two.txt three.txt
 
 -e script, --expression=script
     add the script to the commands to be executed. Useful for combining multiple editing commands.
@@ -133,6 +144,94 @@ sed 's/hello/world/g' < input.txt
 sed 's/hello/world/g' < input.txt > output.txt
 ```
 this commands routes the input content towards sed command and save the final result in outpput commands
+
+Another examples:-
+
+the **`w`** and **`s///w`** tools. In simple terms, these are `sed`'s built-in **"Save As"** buttons.
+
+Instead of changing the original file (like `-i` does) or saving *everything* to a new file (like `>` does), `w` allows you to pick out specific lines and save **only those lines** into a separate file.
+
+Here is how they work with easy examples:
+
+---
+
+### Example 1: The `s///w` flag (Save only what you changed)
+
+Imagine you have a shopping list called `grocery.txt`:
+
+```text
+apple
+buy milk
+banana
+buy bread
+
+```
+
+You want to change the word `buy` to `purchased`, but you **only** want to save the lines you actually changed into a new file called `receipt.txt`.
+
+You can do this:
+
+```bash
+sed -n 's/buy/purchased/w receipt.txt' grocery.txt
+
+```
+
+*(Note: The `-n` tells sed to stay quiet and not print anything to the screen).*
+
+**The Result:**
+
+* Your original `grocery.txt` is **not** changed.
+* A brand new file called `receipt.txt` is created, and it contains **only** the lines that were successfully changed:
+```text
+purchased milk
+purchased bread
+
+```
+
+
+
+---
+
+### Example 2: The `w` command (The "Extractor")
+
+You can also use `w` by itself without changing any text. This is useful for searching a massive file and extracting specific lines into a new file.
+
+Imagine you have a huge server log file called `server.log`:
+
+```text
+10:00 AM - All systems good
+10:01 AM - WARNING: Low memory
+10:02 AM - All systems good
+10:03 AM - ERROR: Database crashed
+
+```
+
+You want to scan this file, find any line that contains the word `ERROR`, and save just those errors into a file called `alerts.txt`.
+
+You run this command:
+
+```bash
+sed -n '/ERROR/w alerts.txt' server.log
+
+```
+
+**The Result:**
+
+* `sed` scans the log file.
+* It extracts only the error lines and saves them into `alerts.txt`:
+```text
+10:03 AM - ERROR: Database crashed
+
+```
+
+
+
+### Summary of the difference:
+
+* **`>`** saves **everything** to a new file.
+* **`-i`** overwrites the **original** file.
+* **`w`** filters out and saves **only specific lines** to a new file.
+
 
 
 ---
